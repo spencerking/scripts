@@ -1,0 +1,21 @@
+#!/bin/sh
+
+QUIT=0
+
+if [ "$1" = "" ]; then
+    echo "Please provide the extension to change (e.g. txt)."
+    QUIT=1
+fi
+
+if [ "$2" = "" ]; then
+    echo "Please provide a new extension (e.g. txt)."
+    QUIT=1
+fi
+
+if [ $QUIT = 1 ]; then
+    exit
+fi
+
+for f in *.$1; do 
+    mv -- "$f" "${f%.$1}.$2"
+done
