@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ "$1" = "" ]; then
+	echo "Please provide a thread url."
+	exit
+fi
+
+curl $1 | grep fileThumb | grep -o href="\"\/\/is2.4chan.org\/[a-zA-Z]\+\/[0-9a-zA-Z]\+.[a-zA-Z]\+" | cut -c 9- > links.txt
+
+cat links.txt | parallel --gnu "wget {}"
+
+rm links.txt
+
+rm *.1
